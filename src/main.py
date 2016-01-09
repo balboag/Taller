@@ -2,6 +2,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+# -*- coding: utf-8 -*-
 
 from gi.repository import Gtk
 
@@ -10,6 +11,8 @@ from conexion import bd
 import clientes
 
 import factura
+
+import impresion
 
 class main:
 
@@ -61,6 +64,10 @@ class main:
         self.entPrecio = b.get_object("entPrecio")
         self.trewVentas = b.get_object("trewVentas")
         self.listaVentas = b.get_object("listVentas")
+        self.btnImprimir = b.get_object("btnImprimir")
+        self.menubar = b.get_object("menubar")
+         
+        
         self.ventanaPrincipal.show()
         clientes.mostrar(self.listCliente, self.trewCliente)
         
@@ -86,12 +93,20 @@ class main:
             "on_btnSalirven_clicked": self.on_btnSalirven_clicked,
             "on_ventanaVentas_destroy": self.on_ventanaVentas_destroy,
             "on_btnSalirven_delete_event": self.on_btnSalirven_delete_event,
-            "on_btnGrabarven_clicked": self.on_btnGrabarven_clicked
+            "on_btnGrabarven_clicked": self.on_btnGrabarven_clicked,
+            "on_imagemenuitem5_activate": self.on_imagemenuitem5_activate,
+            "on_btnImprimir_clicked": self.on_btnImprimir_clicked
             }
 
         b.connect_signals(dic)
 
 #declaracion y codificacion de funciones
+    def on_btnImprimir_clicked(self, widget):
+        impresion.imprimir(self.dataf, self.datam, self.data)
+        
+    def on_imagemenuitem5_activate(self, widget):
+        Gtk.main_quit()
+
     def on_btnGrabarven_clicked(self, widget, Data=None):
         self.Conce = self.entConce.get_text()
         self.Precio = self.entPrecio.get_text()
@@ -138,8 +153,11 @@ class main:
     def on_btnGrabarfac_clicked(self, widget):
         self.dnifac = self.data
         self.matrifac = self.entMatrifac.get_text()
+        self.matrifac.upper()
         self.marcafac = self.entMarcafac.get_text()
+        self.marca.capitalize()
         self.modelfac = self.entModelfac.get_text()
+        self.modelfac.capitalize()
         self.fechafac = self.entFechafac.get_text()
         if factura.Grabarfac(self.dnifac, self.matrifac, self.marcafac, self.modelfac, self.fechafac) == False:
             self.aviso.show()
