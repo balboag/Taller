@@ -172,7 +172,6 @@ class main:
         self.datam = model[iter][2]
         self.datam = str(self.datam)
         
-    
     def on_trwCliente_cursor_changed(self, widget, Data=None):
         self.seleccion = self.trewCliente.get_selection()
         model, iter = self.seleccion.get_selected()

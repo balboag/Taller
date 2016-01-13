@@ -12,7 +12,7 @@ import sqlite3
 
 try:
     bd = sqlite3.connect("tallerauto.sqlite")
-    print ("la base de datos se abrio correctamente")
+    print ("Conexion correcta con la base de datos.")
 except:
-    print("no se ha podido establecer conexion con el servidor")
+    print("No se pudo establecer conexion con el servidor.")
     exit
